@@ -1,6 +1,6 @@
 plugins {
-	id `java-gradle-plugin`
-	id `maven-publish`
+	`java-gradle-plugin`
+	`maven-publish`
 }
 
 group = "com.walker.plugins"

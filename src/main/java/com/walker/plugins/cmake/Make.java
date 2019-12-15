@@ -93,6 +93,7 @@ public class Make extends DefaultTask {
         return binary;
     }
 
+	@Internal
     public final ListProperty<String> getArguments() {
         return arguments;
     }
