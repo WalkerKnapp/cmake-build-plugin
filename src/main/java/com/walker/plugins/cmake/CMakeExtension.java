@@ -6,6 +6,7 @@ import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 
 // Recreated from org.gradle.samples.plugins.cmake
@@ -14,9 +15,12 @@ public class CMakeExtension {
     private final DirectoryProperty includeDirectory;
     private final DirectoryProperty projectDirectory;
 
+    private final Property<String[]> cmakeArguments;
+
     @Inject
     public CMakeExtension(ProjectLayout projectLayout, ObjectFactory objectFactory) {
         binary = objectFactory.property(String.class);
+        cmakeArguments = objectFactory.property(String[].class);
         includeDirectory = objectFactory.directoryProperty();
         projectDirectory = objectFactory.directoryProperty();
         projectDirectory.set(projectLayout.getProjectDirectory());
@@ -33,5 +37,9 @@ public class CMakeExtension {
 
     public final DirectoryProperty getProjectDirectory() {
         return projectDirectory;
+    }
+
+    public final Property<String[]> getCmakeArguments() {
+        return cmakeArguments;
     }
 }
