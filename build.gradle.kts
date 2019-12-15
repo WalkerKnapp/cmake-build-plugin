@@ -8,7 +8,7 @@ version = "1.0"
 gradlePlugin {
 	(plugins) {
 		register("cmakeLibrary") {
-			id = "com.walker.plugins.cmake-library"
+			id = "com.github.WalkerKnapp.cmake-build-plugin"
 			implementationClass = "com.walker.plugins.cmake.CMakeLibraryPlugin"
 		}
 		register("wrappedLibrary") {
