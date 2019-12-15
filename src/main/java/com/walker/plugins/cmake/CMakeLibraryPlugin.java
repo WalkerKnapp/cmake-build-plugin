@@ -21,7 +21,7 @@ public class CMakeLibraryPlugin implements Plugin<Project> {
             task.setBuildType("Debug");
             task.getIncludeDirs().from(project.getConfigurations().getByName("cppCompile"));
             task.getLinkFiles().from(project.getConfigurations().getByName("cppLinkDebug"));
-            task.getVariantDirectory().set(project.getLayout().getBuildDirectory().dir("debug"));
+            //task.getVariantDirectory().set(project.getLayout().getBuildDirectory().dir("debug"));
             task.getProjectDirectory().set(extension.getProjectDirectory());
         });
 
@@ -29,7 +29,7 @@ public class CMakeLibraryPlugin implements Plugin<Project> {
             task.setBuildType("RelWithDebInfo");
             task.getIncludeDirs().from(project.getConfigurations().getByName("cppCompile"));
             task.getLinkFiles().from(project.getConfigurations().getByName("cppLinkRelease"));
-            task.getVariantDirectory().set(project.getLayout().getBuildDirectory().dir("release"));
+            //task.getVariantDirectory().set(project.getLayout().getBuildDirectory().dir("release"));
             task.getProjectDirectory().set(extension.getProjectDirectory());
         });
 
@@ -37,7 +37,7 @@ public class CMakeLibraryPlugin implements Plugin<Project> {
             task.setGroup("Build");
             task.setDescription("Builds the debug binaries");
             task.generatedBy(cmakeDebug);
-            task.binary(extension.getBinary());
+            task.getBinary().set(extension.getProjectDirectory().file(extension.getBinary()));
             task.getProjectDirectory().set(extension.getProjectDirectory());
         });
 
@@ -45,7 +45,7 @@ public class CMakeLibraryPlugin implements Plugin<Project> {
             task.setGroup("Build");
             task.setDescription("Builds the release binaries");
             task.generatedBy(cmakeRelease);
-            task.binary(extension.getBinary());
+            task.getBinary().set(extension.getProjectDirectory().file(extension.getBinary()));
         });
 
         tasks.named("assemble", task -> task.dependsOn(assembleDebug));

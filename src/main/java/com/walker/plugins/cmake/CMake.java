@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 // Recreated from org.gradle.samples.plugins.cmake
 public class CMake extends DefaultTask {
     private String buildType;
-    private final DirectoryProperty variantDirectory = getProject().getObjects().directoryProperty();
+    //private final DirectoryProperty variantDirectory = getProject().getObjects().directoryProperty();
     private final DirectoryProperty projectDirectory = getProject().getObjects().directoryProperty();
     private final ConfigurableFileCollection includeDirs = getProject().files();
     private final ConfigurableFileCollection linkFiles = getProject().files();
@@ -26,7 +26,7 @@ public class CMake extends DefaultTask {
     public void generateCmakeFiles() {
         String cmakeExecutable = System.getenv().getOrDefault("CMAKE_EXECUTABLE", "cmake");
 
-        variantDirectory.get().getAsFile().mkdirs();
+        //variantDirectory.get().getAsFile().mkdirs();
         getProject().exec(execSpec -> {
             execSpec.setWorkingDir(getProjectDirectory());
             execSpec.commandLine(
@@ -53,7 +53,7 @@ public class CMake extends DefaultTask {
 
     @OutputFiles
     public FileCollection getCmakeFiles() {
-        return getProject().fileTree(variantDirectory, it -> it.include("**/CMakeFiles/**/*").include("**/Makefile").include("**/*.cmake"));
+        return getProject().fileTree(projectDirectory, it -> it.include("**/CMakeFiles/**/*").include("**/Makefile").include("**/*.cmake"));
     }
 
     @Input
@@ -65,10 +65,10 @@ public class CMake extends DefaultTask {
         this.buildType = buildType;
     }
 
-    @Internal
-    public DirectoryProperty getVariantDirectory() {
-        return variantDirectory;
-    }
+    //@Internal
+    //public DirectoryProperty getVariantDirectory() {
+    //    return variantDirectory;
+    //}
 
     @Internal
     public DirectoryProperty getProjectDirectory() {
